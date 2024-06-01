@@ -8,6 +8,8 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaIoBaseDownload
 
+# For documentation about the Google Drive API, visit https://developers.google.com/drive/api/guides/about-sdk
+
 class Drive:
     def __init__(self) -> None:
         pass

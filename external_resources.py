@@ -37,8 +37,10 @@ class Drive:
 
         return creds
 
+    # This method returns a dictionary with key-value pair of file name and file id
     def get_drive_files(self):
         
+        # Check if the autorization file exists, otherwise starts OAuth process
         if os.path.exists("secrets/tokens.json"):
             creds = Credentials.from_authorized_user_file("secrets/tokens.json")
         else:
@@ -65,6 +67,7 @@ class Drive:
         except HttpError as error:
             print(f"An error occurred. {error}")
 
+        # Return a dictionary with the image name and the image id
         if not items:
             print("No files found.")
         else:
@@ -75,8 +78,10 @@ class Drive:
 
         return image_ids
     
+    # This method downloads a byte sequence for the image from Google Drive using the specified ID
     def download_image(self, id):
 
+        # Check if the autorization file exists, otherwise starts OAuth process
         if os.path.exists("secrets/tokens.json"):
             creds = Credentials.from_authorized_user_file("secrets/tokens.json")
         else:
@@ -87,13 +92,18 @@ class Drive:
 
             # Create an API call
             request = service.files().get_media(fileId=id)
+
+            # Creates an empty byte file
             file = io.BytesIO()
+
+            # Download the image in byte format to the empty file
             downloader = MediaIoBaseDownload(file, request)
             done = False
             while done is False:
                 status, done = downloader.next_chunk()
                 print(f"Download {int(status.progress() * 100)}.")
 
+            #Returns the bytes of the image
             return file.getvalue()
             
         except HttpError as error:

@@ -46,10 +46,16 @@ h1{
     width: 230px;
     height: 40px;
     text-align: center;
+    transition-duration: 0.4s;
+}
+
+#search_button:hover{
+    background-color: #5681a6;
+
 }
 
 #name_box{
-    background-color: #C6E7FE;
+    background-color: white;
     width: 390px;
     height: 47px;
     padding: 2%;
@@ -57,4 +63,22 @@ h1{
     padding-bottom: 5px;
     margin-bottom: 25px;
     border: 2px solid black;
+    transition-duration: 0.4s;
 }
+
+#name_box:hover{
+    background-color: #C6E7FE;
+}
+
+#name_box:hover::placeholder{
+    color: transparent;
+}
+
+#name_box:focus{
+    background-color: #C6E7FE;
+}
+
+#name_box:focus::placeholder{
+    color: transparent;
+}
+

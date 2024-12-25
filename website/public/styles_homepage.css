@@ -27,10 +27,24 @@ header::before{
 
 h1{
     z-index: 2;
+    font-family: 'Jost', sans-serif;
+    font-size: 50px !important;
+    font-weight: normal !important;
 }
 
 #description{
     height: 35vh;
+}
+
+p{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}
+
+label{
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
 }
 
 #copyright{
@@ -46,6 +60,9 @@ h1{
     width: 230px;
     height: 40px;
     text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 16px;
     transition-duration: 0.4s;
 }
 
@@ -54,7 +71,7 @@ h1{
 
 }
 
-#name_box{
+#lname, #fname{
     background-color: white;
     width: 390px;
     height: 47px;
@@ -66,19 +83,19 @@ h1{
     transition-duration: 0.4s;
 }
 
-#name_box:hover{
+#lname:hover, #fname:hover{
     background-color: #C6E7FE;
 }
 
-#name_box:hover::placeholder{
+#lname:hover::placeholder, #fname:hover::placeholder{
     color: transparent;
 }
 
-#name_box:focus{
+#lname:focus, #fname:focus{
     background-color: #C6E7FE;
 }
 
-#name_box:focus::placeholder{
+#lname:focus::placeholder, #fname:focus::placeholder{
     color: transparent;
 }
 

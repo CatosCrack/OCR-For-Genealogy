@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         tileSources: {
             type: 'image',
             //url: sessionStorage.getItem("image")
-            url: "images/1.jpg"
+            url: imageURL
         }
     });
 

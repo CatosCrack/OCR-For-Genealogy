@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     const container = document.getElementById('results_list');
 
     // Check if sessionStorage is empty
-    if (results !== null){
+    if (results !== null && Object.keys(results).length !== 0) {
 
         var i = 0;
 

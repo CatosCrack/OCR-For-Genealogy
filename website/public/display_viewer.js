@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
     
     // Get result ID
     const urlQuery = window.location.search;
@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const imageURL = results[index]['url'];
     const bounds = results[index]['bounds'];
 
-    getImage(imageURL, bounds);
+    console.log(bounds);
 
     const viewerDiv = document.createElement("div");
     viewerDiv.id = 'openseadragon';
+    viewerDiv.style.backgroundColor = "black";
     document.body.appendChild(viewerDiv);
 
     var viewer = OpenSeadragon({
@@ -22,28 +23,24 @@ document.addEventListener('DOMContentLoaded', function() {
         prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.0.0/images/",
         tileSources: {
             type: 'image',
-            //url: sessionStorage.getItem("image")
             url: imageURL
         }
     });
 
     viewer.add
+
+    const overlay = document.createElement('div');
+    overlay.className = "bounding-box";
+    overlay.style.position = "absolute";
+    overlay.style.border = "2px solid red";
+
+    overlay.style.left = bounds[0] + "%";
+    overlay.style.top = bounds[1] + "%";
+    overlay.style.width = bounds[2] + "%";
+    overlay.style.height = bounds[3] + "%";
+
+    viewer.addOverlay({
+        element: overlay,
+        location: new OpenSeadragon.Rect(bounds[0]/100, bounds[1]/100, bounds[2]/100, bounds[3]/100)
+    });
 });
-
-async function getImage(imageURL, bounds) {
-    try{
-        const response = await fetch(imageURL);
-        const blob = await response.blob();
-        const reader = new FileReader();
-
-        reader.onload = function() {
-            const base64data = reader.result;
-            sessionStorage.setItem("image", base64data);
-        }
-
-        reader.readAsDataURL(blob);
-
-    } catch (error) {
-        console.error(error);
-    }
-}

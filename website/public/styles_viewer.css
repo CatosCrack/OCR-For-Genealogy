@@ -1,0 +1,46 @@
+header{
+    background-color: #173753;
+    height: 10vh;
+    width: 100vw;
+    position: relative;
+}
+
+h1{
+    font-family: 'Jost', sans-serif;
+    font-weight: normal;
+    font-size: 25px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+p{  
+    color: white;
+    font-family: 'Jost', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+    text-decoration: underline;
+    line-height: 1;
+    margin: 0.5px;
+    padding: 0.5px;
+}
+
+button{
+    background: none;
+    display: inline-flex;
+    border: none;
+    transition-duration: 0.4s;
+    position: absolute;
+    left: 2%;
+}
+
+button:hover{
+    background: #5681a6;
+}
+
+#openseadragon{
+    position: absolute;
+    top: 10vh;
+    width: 100vw;
+    height: 90vh;
+}

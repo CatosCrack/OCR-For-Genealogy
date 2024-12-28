@@ -1,4 +1,4 @@
-from external_resources import Drive
+from document_ai import ocr_engine
 from recognition import Recognition
 
 rec = Recognition()

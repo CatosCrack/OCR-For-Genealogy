@@ -2,7 +2,7 @@ import io
 import pytesseract
 import spacy
 from PIL import Image
-from external_resources import Drive
+from document_ai import ocr_engine
 from image_correction import ImageCorrection
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches

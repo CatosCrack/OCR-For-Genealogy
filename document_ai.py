@@ -25,24 +25,30 @@ class ocr_engine:
     def process_documents(self):
 
         # Get image from URL
-        urls = db.storage_get_images()
+        uris = db.storage_get_images()
 
         # Get extension of images to set correct mime type
-        extension = urls[1][-3:]
+        extension = uris[2][-3:]
         if "jpg" in extension:
             extension = "jpeg"
         elif "png" in extension:
             extension = "png"
 
-        print(f"Extension: {extension}")
-
         # Create a raw document object
-        document = documentai.GcsDocument(gcs_uri=urls[1], mime_type=f"image/{extension}")
+        document = documentai.GcsDocument(gcs_uri=uris[2], mime_type=f"image/{extension}")
 
         # Create API request
-        request = documentai.ProcessRequest(name=self.__processor, gcs_document=document)
+        request = documentai.ProcessRequest(name=self.__processor, 
+                                            gcs_document=document,
+                                            process_options={"ocr_config": {
+                                                "hints": {"language_hints": "es"}
+                                                }
+                                            })
 
         # Get result
         result = self.__client.process_document(request=request)
         document = result.document
         print(document)
+
+        # Get text from document
+        text = document.text

@@ -39,7 +39,7 @@ class Database:
     ## Returs a list of dowload URLs for all files
     def storage_get_images(self):
         
-        urls = []
+        uris = []
 
         prefix = f"test_images/"
         bucket = storage.bucket()
@@ -49,11 +49,10 @@ class Database:
                 name = urllib.parse.quote(file.name, safe="")
                 blob = bucket.get_blob(file.name)
                 token = blob.metadata.get("firebaseStorageDownloadTokens")
-                url = f"gs://{self.__bucket}/{file.name}"
-                #url = f"https://firebasestorage.googleapis.com/v0/b/{self.__bucket}/o/{name}?alt=media&token={token}"
-                urls.append(url)
+                uri = f"gs://{self.__bucket}/{file.name}"
+                uris.append(uri)
 
-        return urls
+        return uris
     
     ##TODO: Update function to use new database structure
     def upload_document(self, collectionData, subcollectionData):

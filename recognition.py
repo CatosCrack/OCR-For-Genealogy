@@ -6,6 +6,7 @@ from spacy.matcher import Matcher
 import utils
 import csv
 import unicodedata
+import re
 
 db = Database()
 

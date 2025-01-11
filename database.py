@@ -36,7 +36,7 @@ class Database:
             document_fields = document.to_dict()
             print(f"Document Fields: {document_fields}")
 
-    ## Returs a list of dowload URLs for all files
+    ## Returs a list of URIs and URLs for all files
     def storage_get_images(self):
         
         uris = []
@@ -46,18 +46,36 @@ class Database:
         files = list(bucket.list_blobs(prefix=prefix, delimiter="/"))
         for file in files:
             if (file.name != prefix):
-                name = urllib.parse.quote(file.name, safe="")
-                blob = bucket.get_blob(file.name)
-                token = blob.metadata.get("firebaseStorageDownloadTokens")
+                url = file.metadata["firebaseStorageDownloadTokens"]
+                file_name = urllib.parse.quote(file.name, safe="")
+                url = f"https://firebasestorage.googleapis.com/v0/b/{self.__bucket}/o/{file_name}?alt=media&token={url}"
                 uri = f"gs://{self.__bucket}/{file.name}"
-                uris.append(uri)
+                uris.append((uri,url))
 
         return uris
     
-    ##TODO: Update function to use new database structure
-    def upload_document(self, collectionData, subcollectionData):
-        # This adds a new document to the Documents collection
-        # [1] retrieves the DocumentReference of the added document
-        collection = self.__store.collection("Documents").add(collectionData)[1]
-        for person in subcollectionData:
-            subcollection = collection.collection("Person").add(person)
+    # Upload an image to Document collection in Firestore
+    # Returns automatically-generated document ID
+    def create_document(self, year, department, municipality, url):
+        data = {
+            "year":year,
+            "department":department,
+            "municipality":municipality,
+            "url":url
+        }
+
+        update_time, doc_ref = self.__store.collection("Document").add(data)
+        id = doc_ref.id
+
+        return id
+    
+    # Upload a bounding box instance to Bounds collection in Firestore
+    def create_bound(self, bounds, doc_id, first_name, last_name):
+        data = {
+            "bounds":bounds,
+            "doc_id":doc_id,
+            "first_name":first_name,
+            "last_name":last_name
+        }
+
+        update_time, doc_ref = self.__store.collection("Bounds").add(data)

@@ -23,9 +23,15 @@ class ocr_engine:
         self.__processor = self.__client.processor_path(project=project_id, location=location, processor=processor_id)
 
     def process_documents(self):
+        
+        # Get image data from Could Storage
+        bucket_data = db.storage_get_images()
 
-        # Get image from URL
-        uris = db.storage_get_images()
+        # Get image URIs
+        uris = [group[0] for group in bucket_data]
+
+        # Get image download URLs
+        urls = [group[1] for group in bucket_data]
 
         # Get extension of images to set correct mime type
         extension = uris[2][-3:]

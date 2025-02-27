@@ -7,6 +7,7 @@ import utils
 import csv
 import unicodedata
 import re
+import tqdm
 
 db = Database()
 
@@ -80,7 +81,7 @@ class ocr_engine:
         urls = [group[1] for group in bucket_data]
 
         # Iterate through each image fetched
-        for uri, url in uris,urls:
+        for uri, url in tqdm(zip(uris, urls), total=len(uris), desc="Processing images"):
 
             # Get extension of images to set correct mime type
             extension = uris[2][-3:]
@@ -180,7 +181,7 @@ class name_recognition:
     
     def recognize_names(self, text_blocks, original_text):
         ## TODO: Need to find a way to be a bit more flexible with the choice 
-        ## TODO: Create a function to push names and bounding box data to database
+        ## TODO: Use function to push data into Firestore
         for block in text_blocks:
             # Extract names
             print("---------- New Block ----------")

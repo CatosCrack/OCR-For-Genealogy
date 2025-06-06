@@ -67,10 +67,13 @@ class Database:
         update_time, doc_ref = self.__store.collection("Document").add(data)
         id = doc_ref.id
 
+        print("Document added. ID: ", id)
+
         return id
     
     # Upload a bounding box instance to Bounds collection in Firestore
     def create_bound(self, bounds, doc_id, first_name, last_name):
+
         data = {
             "bounds":bounds,
             "doc_id":doc_id,
@@ -78,4 +81,9 @@ class Database:
             "last_name":last_name
         }
 
+        print("Bounds added. Data added: ")
+        print(data)
+
         update_time, doc_ref = self.__store.collection("Bounds").add(data)
+
+        print("ID: ", doc_ref.id)

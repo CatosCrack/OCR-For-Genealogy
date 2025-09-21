@@ -62,12 +62,13 @@ document.addEventListener('DOMContentLoaded', async function () {
             container.appendChild(resultRow);
         });
     } else {
-        const resultRow = document.createElement('row');
-        resultRow.className = "row d-flex justify-content-center align-items-center mt-4 mb-4";
+        const resultRow = document.createElement('h3');
         resultRow.id = "no_result";
-        resultRow.innerHTML = `
-            <h3>No se encontraron resultados</h3>
-        `;
+        resultRow.innerHTML = `No se encontraron resultados`;
         container.appendChild(resultRow);
+
+        const resultRow2 = document.createElement('p');
+        resultRow2.innerHTML = "Revisa los datos ingresados e intenta con otra búsqueda";
+        container.appendChild(resultRow2);
     }
 });

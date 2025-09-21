@@ -2,59 +2,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="images/favicon.png">
     <title>Archivos Notariales</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
     <link rel="stylesheet" href="styles_results.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <script src="display_results.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
 </head>
 
 <body>
     <!--Image Header-->
-    <header class="container-fluid d-flex justify-content-center align-items-center">
+    <header>
         <h1>Resultados</h1>
+        <div class="search_icon">
+            <img id="search_icon" src="images/search_icon.svg" alt="Search Icon">
+        </div>
     </header>
-    <div class="container-fluid d-flex justify-content-center align-items-center px-5 pt-3 pb-3">
-        <div class="row" id="result_area">
-            <!-- Search Area -->
-            <div class="col-4 d-flex flex-column justify-content-center align-items-center">
-                <div class="text-center align-items-center mb-4">
-                    <h2>Nueva Búsqueda</h2>
-                    <p>Ingrese el nombre y apellido de la person para realizar una nueva búsqueda</p>
+    <!-- Mobile Search Area -->
+    <div class="mobile_search_area">
+        <h2>Nueva Búsqueda</h2>
+        <p>Ingrese el nombre y apellido de la persona para realizar una nueva búsqueda</p>
+        <form action="" id="search">
+            <div>
+                <label for="fname">Nombre(s)</label><br>
+                <input type="text" id="fname" name="fname" placeholder="Ingrese el nombre">
+            </div>
+            <div>
+                <label for="lname">Apellido(s)</label><br>
+                <input type="text" id="lname" name="lname" placeholder="Ingrese el apellido">
+            </div>
+            <div>
+                <button type="submit" id="search_button">Buscar</button>
+            </div>
+        </form>
+    </div>
+    <!-- Main Body -->
+    <div class="container">
+        <!-- Search Area -->
+        <div class="search_area">
+            <h2>Nueva Búsqueda</h2>
+            <p>Ingrese el nombre y apellido de la persona para realizar una nueva búsqueda</p>
+            <form action="" id="search">
+                <div>
+                    <label for="fname">Nombre(s)</label><br>
+                    <input type="text" id="fname" name="fname" placeholder="Ingrese el nombre">
                 </div>
-                <form class="w-100 justify-content-center align-items-center" action="" id="search">
-                    <div class="row d-flex text-center align-items-center justify-content-center">
-                        <label>Nombre(s)</label>
-                        <input class="mt-2" type="text" id="fname" name="fname" placeholder="Ingrese el nombre">
-                    </div>
-                    <div class="row d-flex text-center align-items-center justify-content-center" id="field">
-                        <label>Apellido(s)</label>
-                        <input class="mt-2" type="text" id="lname" name="lname" placeholder="Ingrese el apellido">
-                    </div>
-                    <div class="row d-flex align-items-center justify-content-center">
-                        <br><button type="submit" id="search_button">Buscar</button>
-                    </div>
-                </form>
-            </div>
-            <!-- Separator -->
-            <div class="col-1 d-flex justify-content-center align-items-center mt-3 mb-3">
+                <div>
+                    <label for="lname">Apellido(s)</label><br>
+                    <input type="text" id="lname" name="lname" placeholder="Ingrese el apellido">
+                </div>
+                <div>
+                    <button type="submit" id="search_button">Buscar</button>
+                </div>
+            </form>
+        </div>
+        <!-- Separator -->
+        <div class="separator">
                 <div class="vr"></div>
+        </div>
+        <!-- Results List -->
+        <div class="results_list" id="results_list">
+            <!-- Individual Result -->
+            <div class="result">
+                <!-- Image -->
+                <div class="result_image">
+                    <img src="images/1.jpg">
+                </div>
+                <!-- Data -->
+                <div class="result_data">
+                    <div class="result_name">
+                        <h3><a href=${"viewer.html?id="+resultRow.id} style="color: #173753;">Pepito Perez</a></h3>
+                    </div>
+                    <!-- Municipality Row -->
+                    <div class="result_datapoint">
+                        <h4>Municipio</h4>
+                        <p>Bogotá</p>
+                    </div>
+                    <!-- Department Row -->
+                    <div class="result_datapoint">
+                        <h4>Departamento</h4>
+                        <p>Cundinamarca</p>
+                    </div>
+                    <!-- Year Row -->
+                    <div class="result_datapoint">
+                        <h4>Año</h4>
+                        <p>2001</p>
+                    </div>
+                </div>
             </div>
-            <!-- Results List -->
-            <div class="col-7 d-flex flex-column justify-content-center align-items-center mt-3 ">
-                <div class="list-group" id="results_list">
+            <!-- Individual Result -->
+            <div class="result">
+                <!-- Image -->
+                <div class="result_image">
+                    <img src="images/1.jpg">
+                </div>
+                <!-- Data -->
+                <div class="result_data">
+                    <div class="result_name">
+                        <h3><a href=${"viewer.html?id="+resultRow.id} style="color: #173753;">Pepito Perez</a></h3>
+                    </div>
+                    <!-- Municipality Row -->
+                    <div class="result_datapoint">
+                        <h4>Municipio</h4>
+                        <p>Bogotá</p>
+                    </div>
+                    <!-- Department Row -->
+                    <div class="result_datapoint">
+                        <h4>Departamento</h4>
+                        <p>Cundinamarca</p>
+                    </div>
+                    <!-- Year Row -->
+                    <div class="result_datapoint">
+                        <h4>Año</h4>
+                        <p>2001</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Individual Result -->
+            <div class="result">
+                <!-- Image -->
+                <div class="result_image">
+                    <img src="images/1.jpg">
+                </div>
+                <!-- Data -->
+                <div class="result_data">
+                    <div class="result_name">
+                        <h3><a href=${"viewer.html?id="+resultRow.id} style="color: #173753;">Pepito Perez</a></h3>
+                    </div>
+                    <!-- Municipality Row -->
+                    <div class="result_datapoint">
+                        <h4>Municipio</h4>
+                        <p>Bogotá</p>
+                    </div>
+                    <!-- Department Row -->
+                    <div class="result_datapoint">
+                        <h4>Departamento</h4>
+                        <p>Cundinamarca</p>
+                    </div>
+                    <!-- Year Row -->
+                    <div class="result_datapoint">
+                        <h4>Año</h4>
+                        <p>2001</p>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- Copyright -->
+        <div class="copyright">
+            <p>©2025 Camilo Galvis Sierra</p>
+        </div>
     </div>
-    <!-- Copyright -->
-    <div class="container-fluid text-end px-5" id="copyright">
-        <p>©2025 Camilo Galvis Sierra</p>
-    </div>
-    <script type="module" src="search.js"></script>
+    <!-- <script type="module" src="scripts/search.js"></script> -->
+    <script src="scripts/toggle_menu.js"></script>
 </body>
 </html>

@@ -1,46 +1,72 @@
-header{
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    display: grid;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
     background-color: #173753;
     height: 10vh;
     width: 100vw;
-    position: relative;
 }
 
-h1{
+h1 {
     font-family: 'Jost', sans-serif;
     font-weight: normal;
-    font-size: 25px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-p{  
+    text-wrap: wrap;
     color: white;
-    font-family: 'Jost', sans-serif;
-    font-weight: normal;
-    font-size: 16px;
-    text-decoration: underline;
-    line-height: 1;
-    margin: 0.5px;
-    padding: 0.5px;
 }
 
-button{
-    background: none;
-    display: inline-flex;
-    border: none;
-    transition-duration: 0.4s;
-    position: absolute;
-    left: 2%;
+img {
+    align-self: center;
+    cursor: pointer;
 }
 
-button:hover{
-    background: #5681a6;
-}
-
+/* Viewer */
 #openseadragon{
     position: absolute;
-    top: 10vh;
     width: 100vw;
     height: 90vh;
+}
+
+/* Tablets and Desktop */
+@media screen and (min-width: 600px) {
+
+    header {
+        grid-template-columns: 60px 2fr;
+    }
+
+    h1 {
+        font-size: clamp(30px, 4vw, 40px);
+    }
+
+    img {
+        width: clamp(40px, 15vw, 50px);
+        height: clamp(40px, 15vw, 50px);
+        margin-left: 20%;
+        margin-top: 5%;
+    }
+}
+
+/* Phones */
+@media screen and (max-width: 600px) {
+
+    header {
+        grid-template-columns: 1fr 2fr;
+    }
+
+     h1 {
+        font-size: clamp(18px, 4.5vw, 25px);
+    }
+
+    img {
+        width: clamp(35px, 15vw, 40px);
+        height: clamp(35px, 15vw, 40px);
+        margin-left: 10%;
+        margin-top: 15%;
+    }
 }
